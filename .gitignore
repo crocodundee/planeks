@@ -4,3 +4,5 @@ planeks/__pycache__
 users/__pycache__
 users/migrations/__pycache__
 planeks.sqlite3
+posts/__pycache__
+posts/migrations/__pycache__

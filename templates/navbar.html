@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Главная</a>
+    <a class="navbar-brand" href="{% url 'post-list-view' %}">Главная</a>
     <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarContent" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -7,7 +7,7 @@
         <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Публикации</a>
+                    <a class="nav-link" href="{% url 'post-new' %}">Публикации</a>
                 </li>
                 {% if user.user_group.id == 1 %}
                     <li class="nav-item">

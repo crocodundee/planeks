@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-9">
+                {% if posts %}
+                    {% for post in posts %}
+                        <div><a href={% url 'post-view' post.slug %}>{{ post.title }}</a></div>
+                    {% endfor %}
+                {% else %}
+                    <p>Публикации на обработке модераторов либо еще нет созданных</p>
+                {% endif%}
+        </div>
+        <div class="col-lg-3">
+            <a class="btn btn-primary" href="{% url 'post-new' %}">+ Создать пост</a>
+        </div>
+    </div>
+
+
+{% endblock %}

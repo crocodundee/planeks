@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 
     # APPS
     'users',
+    'posts',
 ]
 
 MIDDLEWARE = [
@@ -98,6 +99,9 @@ AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'post-list-view'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/

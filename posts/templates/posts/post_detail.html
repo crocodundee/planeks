@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+        <div class="col-9">
+            <h3>{{ object.title }}</h3>
+            <div>
+                {{ object.content | safe }}
+            </div>
+        </div>
+        <div class="col">
+            {% if comments %}
+            <div>
+                {% for comment in comments %}
+                    <blockquote class="blockquote">
+                      <p class="mb-0">{{ comment.content }}</p>
+                      <footer class="blockquote-footer">by <cite title="author">{{ comment.author.full_name }}</cite>, {{ comment.created_at|date:"j M Y, H:i" }}</footer>
+                    </blockquote>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <button class="btn btn-primary" data-toggle="modal" data-target="#comment">+ Комментарий</button>
+            <!-- Start MODAL -->
+            <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="editModalForm" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form method="POST" id="edit-form">
+                                {% csrf_token %}
+                                {{ form.content | as_crispy_field }}
+                            </form>
+                            <div class="modal-footer">
+                                <a class="btn btn-default" href={% url 'post-view' object.slug %}>Отменить</a>
+                                <button type="submit" class="btn btn-primary" form="edit-form">Сохранить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End MODAL -->
+        </div>
+    </div>
+{% endblock %}

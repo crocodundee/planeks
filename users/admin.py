@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from users.models import User
 from users.groups import UserGroup
+from posts.models import Post
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -17,6 +18,7 @@ class UserAdmin(admin.ModelAdmin):
         for user in queryset:
             user.user_group = admins
             user.save()
+            Post.objects.filter(author=user).update(moderation_status='APPROVE')
     add_as_admin.short_description = "Добавить в группу 'Администраторы'"
 
     def add_as_editor(self, request, queryset):
@@ -24,6 +26,7 @@ class UserAdmin(admin.ModelAdmin):
         for user in queryset:
             user.user_group = editors
             user.save()
+            Post.objects.filter(author=user).update(moderation_status='APPROVE')
     add_as_editor.short_description = "Добавить в группу 'Редакторы'"
 
     def add_as_user(self, request, queryset):
