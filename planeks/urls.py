@@ -5,7 +5,7 @@ from django.urls import path, include
 from posts.views import PostList
 
 urlpatterns = [
-    path('', PostList.as_view(), name='post-list-view'),
+    path('', PostList.as_view(), name='home'),
     path('post/', include('posts.urls')),
     path('user/', include('users.urls')),
     path('admin/', admin.site.urls),

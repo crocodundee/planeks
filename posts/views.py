@@ -1,11 +1,11 @@
 from posts.models import Post, Comment
 from posts.forms import PostForm, CommentForm
+from users.tasks import send_comment_info_mail
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import ModelFormMixin
 from django.shortcuts import redirect
-
 from django.views.generic import (
     DetailView,
     ListView,
@@ -34,6 +34,7 @@ class PostView(ModelFormMixin, DetailView):
             content=form.cleaned_data['content']
         )
         new_comment.save()
+        send_comment_info_mail(new_comment.id)
         return redirect('post-view', self.object.slug)
 
     def post(self, request, *args, **kwargs):
@@ -45,7 +46,7 @@ class PostView(ModelFormMixin, DetailView):
             else:
                 return self.form_invalid(form)
         else:
-            return redirect('post-list-view')
+            return redirect('login')
 
 
 class PostList(ListView):
@@ -57,7 +58,7 @@ class PostList(ListView):
             context['posts'] = Post.objects.approved_posts()
         except Post.DoesNotExist:
             context['posts'] = None
-        context['title'] = 'Post list'
+        context['title'] = 'Главная'
         return context
 
 

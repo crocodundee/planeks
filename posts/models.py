@@ -80,10 +80,10 @@ def set_moderation_status(sender, instance, created, *args, **kwargs):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Публикация')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Комментатор')
     content = models.CharField(max_length=1024, blank=True, null=True, verbose_name="Ваш комментарий")
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
 
     class Meta:
         db_table = 'comments'

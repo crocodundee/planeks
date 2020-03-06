@@ -4,6 +4,6 @@
 <form method="post">
     {% csrf_token %}
     <p>Вы действительно хотите удалить пост "{{ object }}"?</p>
-    <input type="submit" value="Удалить">
+    <input class="btn btn-primary" type="submit" value="Удалить">
 </form>
 {% endblock %}

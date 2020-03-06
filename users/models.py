@@ -36,8 +36,8 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name='Электронный адресс')
-    first_name = models.CharField(max_length=20, blank=True, default='Anonymous', verbose_name='Имя')
-    last_name = models.CharField(max_length=20, blank=True, default='User', verbose_name='Фамилия')
+    first_name = models.CharField(max_length=20, blank=True, verbose_name='Имя')
+    last_name = models.CharField(max_length=20, blank=True, verbose_name='Фамилия')
     birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     username = None
     user_group = models.ForeignKey(UserGroup,

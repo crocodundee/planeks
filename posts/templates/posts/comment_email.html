@@ -1,0 +1,11 @@
+{% extends 'base_email.html' %}
+{% block content %}
+<h4>Привет, {{ post_author }}!</h4>
+    <p>К вашей публикации <a href="http://{{ domain }}{% url 'post-view' slug=comment.post.slug %}">"{{ comment.post.title }}"</a>
+     был добавлен комментарий пользователем {{ comment.author.full_name }} в {{ comment.created_at|date:"j M Y, H:i" }}</p>
+    <blockquote class="blockquote">
+        <p class="mb-0">{{ comment.content }}</p>
+    </blockquote>
+
+    <p>Удачного дня!</p>
+{% endblock %}

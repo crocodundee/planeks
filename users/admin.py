@@ -6,12 +6,12 @@ from posts.models import Post
 
 
 class UserAdmin(admin.ModelAdmin):
-    fields = ['first_name', 'last_name', 'email', 'password', 'user_group', ]
-    list_display = ['email', 'full_name', 'user_group']
-    list_editable = ['user_group', ]
+    fields = ['first_name', 'last_name', 'email', 'password', 'user_group']
+    list_display = ['email', 'full_name', 'user_group', 'is_active']
+    list_editable = ['user_group', 'is_active']
     list_filter = ('user_group', 'date_joined')
     ordering = ('date_joined',)
-    actions = ('add_as_admin', 'add_as_editor', 'add_as_user',)
+    actions = ('add_as_admin', 'add_as_editor', 'add_as_user', 'add_as_active',)
 
     def add_as_admin(self, request, queryset):
         admins = UserGroup.objects.get(id=1)
@@ -35,6 +35,12 @@ class UserAdmin(admin.ModelAdmin):
             user.user_group = users
             user.save()
     add_as_user.short_description = "Добавить в группу 'Пользователи'"
+
+    def add_as_active(self, request, queryset):
+        for user in queryset:
+            user.is_active = True
+            user.save()
+    add_as_active.short_description = "Активировать аккаунт"
 
 
 class GroupAdmin(admin.ModelAdmin):

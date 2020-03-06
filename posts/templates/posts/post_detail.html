@@ -1,30 +1,41 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success" role="alert">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
     <div class="row">
         <div class="col-9">
-            <h3>{{ object.title }}</h3>
+        {% if object.author.full_name %}
+            <p class="small font-italic">{{ object.author.full_name }}, {{ object.created_at }}</p>
+        {% else %}
+            <p class="small font-italic">{{ object.author }}, {{ object.created_at }}</p>
+        {% endif %}
+            <div class="row">
+                <div class="col-10">
+                    <h3>{{ object.title }}</h3>
+                </div>
+                {% if user == object.author %}
+                    <div class="col-2">
+                        <a href="{% url 'post-update' object.slug %}"><i class="fa fa-edit"></i></a>
+                        <a href="{% url 'post-delete' object.slug %}"><i class="fa fa-trash"></i></a>
+                    </div>
+                {% endif %}
+            </div>
             <div>
                 {{ object.content | safe }}
             </div>
         </div>
         <div class="col">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#comment">+ Комментарий</button>
             {% if comments %}
             <div>
                 {% for comment in comments %}
                     <blockquote class="blockquote">
-                      <p class="mb-0">{{ comment.content }}</p>
-                      <footer class="blockquote-footer">by <cite title="author">{{ comment.author.full_name }}</cite>, {{ comment.created_at|date:"j M Y, H:i" }}</footer>
+                      <p class="mb-0 small">{{ comment.content }}</p>
+                      <footer class="blockquote-footer small">by <cite title="author">{{ comment.author}}</cite>, {{ comment.created_at|date:"j M Y, H:i" }}</footer>
                     </blockquote>
                 {% endfor %}
             </div>
             {% endif %}
-            <button class="btn btn-primary" data-toggle="modal" data-target="#comment">+ Комментарий</button>
             <!-- Start MODAL -->
             <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="editModalForm" aria-hidden="true">
                 <div class="modal-dialog modal-lg">

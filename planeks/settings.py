@@ -13,8 +13,7 @@ SECRET_KEY = 'n=_)sf4db00)!a4tx@r-4c7xjzh@@)9-$d@xk0cn&vge0kuy7-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -28,6 +27,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'crispy_forms',
+    'celery',
 
     # APPS
     'users',
@@ -101,7 +101,25 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'post-list-view'
+LOGIN_REDIRECT_URL = 'home'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_PASSWORD = 'planeks8planeks'
+EMAIL_HOST_USER = 'crocodundee'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'anastasia.didan.asm@gmail.com'
+SEND_GRID_API_KEY = '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'
+ACCOUNT_EMAIL_SUBJECY_PREFIX = 'Отправлено с sendgrid.com'
+
+
+# REDIS related settings
+BROKER_URL = 'redis://h:p2df7be446d3fca10cf939f95ecae3aa7f2d9f05a46cdffd407c01065049862dd@ec2-54-229-66-191.eu-west-1.compute.amazonaws.com:27239'
+CELERY_RESULT_BACKEND = BROKER_URL
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
