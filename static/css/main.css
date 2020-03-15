@@ -1,0 +1,35 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container{
+    margin-top: 5%;
+}
+
+nav, .btn-primary, .btn-primary:hover{
+    background-color: #993333;
+    border-color: #993333;
+}
+
+.navbar-brand, .nav-link,
+.navbar-brand:hover,.nav-link:hover{
+    color: #f7f7f7;
+}
+/*
+.btn:hover{
+    background-color: #f7f7f7;
+    border-color: #993333;
+    color: #993333;
+}
+*/
+.input-group{
+    margin-bottom: 10px;
+}
+
+i{
+    width: 18px;
+}
+
+p{
+    margin: 7px 0px;
+}
