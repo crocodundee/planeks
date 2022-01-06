@@ -2,7 +2,7 @@ amqp==2.5.2
 asgiref==3.2.3
 awesome-slugify==1.6.5
 billiard==3.6.3.0
-celery==4.4.1
+celery==5.2.2
 dj-database-url==0.5.0
 Django==3.0.4
 django-ckeditor==5.9.0
